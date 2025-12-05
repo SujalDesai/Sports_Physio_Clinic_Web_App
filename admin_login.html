@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+  <div class="bg-white p-8 rounded-lg shadow-lg w-96">
+    <h1 class="text-2xl font-bold mb-6 text-center text-blue-600">Admin Login</h1>
+    <form action="admin_login.php" method="POST" class="space-y-4">
+      <input type="text" name="username" placeholder="Admin Username" class="w-full p-3 border rounded" required>
+      <input type="password" name="password" placeholder="Password" class="w-full p-3 border rounded" required>
+      <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded">Login</button>
+    </form>
+  </div>
+</body>
+</html>

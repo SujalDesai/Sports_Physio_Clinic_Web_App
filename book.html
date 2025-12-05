@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Appointment</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+  <div class="max-w-lg mx-auto mt-12 bg-white p-8 rounded-lg shadow-lg">
+    <h1 class="text-3xl font-bold mb-6 text-center text-blue-600">Book Your Appointment</h1>
+    <form action="book_appointment.php" method="POST" class="space-y-4">
+      <select name="service" class="w-full p-3 border rounded" required>
+        <option>Sports Injury Consultation</option>
+        <option>Rehabilitation Session</option>
+        <option>Performance Training</option>
+      </select>
+      <input type="date" name="appointment_date" class="w-full p-3 border rounded" required>
+      <input type="time" name="appointment_time" class="w-full p-3 border rounded" required>
+      <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded">Book Now</button>
+    </form>
+  </div>
+</body>
+</html>
