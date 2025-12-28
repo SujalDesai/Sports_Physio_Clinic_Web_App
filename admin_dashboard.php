@@ -7,7 +7,6 @@ if (!isset($_SESSION['admin'])) {
 include 'db_connect.php';
 include 'admin_features.php';
 
-// Handle actions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['confirm'])) {
         confirmAppointment($conn, $_POST['id']);
@@ -19,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Handle filters
+
 $dateFilter = $_POST['filter_date'] ?? null;
 $serviceFilter = $_POST['filter_service'] ?? null;
 $userFilter = $_POST['filter_user'] ?? null;
@@ -41,13 +40,12 @@ $stats = getAnalytics($conn);
 </head>
 <body class="bg-gray-100 min-h-screen p-8">
 
-  <!-- Header -->
   <header class="flex justify-between items-center mb-8">
     <h1 class="text-3xl font-bold text-blue-600">Admin Dashboard</h1>
     <a href="logout.php" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Logout</a>
   </header>
 
-  <!-- Filter Form -->
+  
   <form method="POST" class="flex flex-wrap gap-4 mb-6">
     <input type="date" name="filter_date" class="border p-2 rounded w-48" placeholder="dd-mm-yyyy">
     <select name="filter_service" class="border p-2 rounded w-64">
@@ -60,7 +58,7 @@ $stats = getAnalytics($conn);
     <button type="submit" name="filter" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Filter</button>
   </form>
 
-  <!-- Appointment Table -->
+
   <table class="min-w-full bg-white rounded shadow">
     <thead>
       <tr class="bg-blue-600 text-white">
@@ -134,3 +132,4 @@ $stats = getAnalytics($conn);
 
 </body>
 </html>
+
