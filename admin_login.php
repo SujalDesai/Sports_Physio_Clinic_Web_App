@@ -5,7 +5,6 @@ include 'db_connect.php';
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-// Hardcoded admin credentials
 $adminUser = "admin";
 $adminPass = "admin@123";
 
@@ -17,3 +16,4 @@ if ($username === $adminUser && $password === $adminPass) {
     echo "<h2 style='color:red;text-align:center;'>Invalid admin credentials</h2>";
 }
 ?>
+
