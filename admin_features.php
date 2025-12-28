@@ -1,23 +1,19 @@
 <?php
-// ==========================
-// ADMIN FEATURES
-// ==========================
 
-// Confirm appointment
+
 function confirmAppointment($conn, $id) {
     $stmt = $conn->prepare("UPDATE appointments SET status='Confirmed' WHERE id=?");
     $stmt->bind_param("i", $id);
     return $stmt->execute();
 }
 
-// Reject appointment
 function rejectAppointment($conn, $id) {
     $stmt = $conn->prepare("UPDATE appointments SET status='Cancelled' WHERE id=?");
     $stmt->bind_param("i", $id);
     return $stmt->execute();
 }
 
-// Search & filters
+
 function searchAppointments($conn, $date = null, $service = null, $user = null) {
     $query = "SELECT * FROM appointments WHERE 1=1";
     $params = [];
@@ -35,7 +31,6 @@ function searchAppointments($conn, $date = null, $service = null, $user = null) 
     return $stmt->get_result();
 }
 
-// Analytics dashboard (basic stats)
 function getAnalytics($conn) {
     $analytics = [];
     $analytics['popular_service'] = $conn->query("SELECT service, COUNT(*) AS c FROM appointments GROUP BY service ORDER BY c DESC LIMIT 1")->fetch_assoc();
@@ -44,7 +39,7 @@ function getAnalytics($conn) {
     return $analytics;
 }
 
-// User management
+
 function getAllUsers($conn) {
     return $conn->query("SELECT id, username, email, created_at FROM users");
 }
@@ -62,7 +57,7 @@ function resetUserPassword($conn, $id, $newPassword) {
     return $stmt->execute();
 }
 
-// Export data (CSV)
+
 function exportAppointmentsCSV($conn) {
     $result = $conn->query("SELECT * FROM appointments");
     header('Content-Type: text/csv');
@@ -76,14 +71,11 @@ function exportAppointmentsCSV($conn) {
     exit;
 }
 
-// Multi-admin support (stub: extend users table with role column)
 function getAdminUsers($conn) {
     return $conn->query("SELECT username, role FROM users WHERE role='admin'");
 }
 
-// Audit logs (track admin actions)
 function logAdminAction($conn, $admin, $action, $appointmentId) {
-    // Update the status of the appointment (e.g., Confirmed, Cancelled)
     $stmt = $conn->prepare("UPDATE appointments SET status = ? WHERE id = ?");
     $stmt->bind_param("si", $action, $appointmentId);
     return $stmt->execute();
@@ -91,9 +83,9 @@ function logAdminAction($conn, $admin, $action, $appointmentId) {
 
 
 
-// Automated notifications (stub)
 function sendAdminNotification($email, $summary) {
-    // In production: use PHPMailer or similar
+
     return true;
 }
 ?>
+
