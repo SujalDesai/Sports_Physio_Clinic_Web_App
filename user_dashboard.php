@@ -9,7 +9,7 @@ include 'user_features.php';
 
 $user = $_SESSION['user'];
 
-// ✅ Handle Cancel or Reschedule actions
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action']) && isset($_POST['appointment_id'])) {
         $appointmentId = intval($_POST['appointment_id']);
@@ -30,16 +30,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        // Refresh page to show updated status
         header("Location: user_dashboard.php");
         exit;
     }
 }
 
-// Fetch appointments
+
 $result = $conn->query("SELECT * FROM appointments WHERE username='$user'");
 
-// Summary counts
+
 $total = $result->num_rows;
 $pending = $conn->query("SELECT COUNT(*) AS c FROM appointments WHERE username='$user' AND status='Pending'")->fetch_assoc()['c'];
 $confirmed = $conn->query("SELECT COUNT(*) AS c FROM appointments WHERE username='$user' AND status='Confirmed'")->fetch_assoc()['c'];
@@ -54,13 +53,13 @@ $cancelled = $conn->query("SELECT COUNT(*) AS c FROM appointments WHERE username
 </head>
 <body class="bg-gradient-to-r from-blue-50 to-purple-100 min-h-screen flex flex-col items-center p-8">
 
-  <!-- Header -->
+
+    
   <header class="w-full max-w-5xl flex justify-between items-center mb-8">
     <h1 class="text-4xl font-extrabold text-blue-700">👋 Welcome, <?php echo htmlspecialchars($user); ?></h1>
     <a href="logout.php" class="bg-red-500 text-white px-5 py-2 rounded-lg shadow hover:bg-red-600">Logout</a>
   </header>
 
-  <!-- Summary Cards -->
   <div class="grid md:grid-cols-4 gap-6 w-full max-w-5xl mb-10">
     <div class="bg-white shadow-lg rounded-lg p-6 text-center">
       <h2 class="text-lg font-semibold text-gray-600">Total</h2>
@@ -80,14 +79,12 @@ $cancelled = $conn->query("SELECT COUNT(*) AS c FROM appointments WHERE username
     </div>
   </div>
 
-  <!-- Quick Actions -->
   <div class="w-full max-w-5xl mb-8 text-center">
     <a href="book.html" class="bg-green-500 text-white px-8 py-3 rounded-lg shadow-lg hover:bg-green-600 transition">
       ➕ Book New Appointment
     </a>
   </div>
 
-  <!-- Appointments -->
   <div class="w-full max-w-5xl">
     <h2 class="text-2xl font-bold mb-6 text-center text-blue-700">📅 Your Appointments</h2>
     <?php if ($result->num_rows > 0) { ?>
@@ -105,7 +102,7 @@ $cancelled = $conn->query("SELECT COUNT(*) AS c FROM appointments WHERE username
               ?>
             </p>
             <div class="flex flex-col items-center space-y-4">
-              <!-- Reschedule Form -->
+             
               <form method="post" class="flex flex-col items-center space-y-2">
                 <input type="hidden" name="appointment_id" value="<?php echo $row['id']; ?>">
                 <input type="hidden" name="action" value="Reschedule">
@@ -121,7 +118,6 @@ $cancelled = $conn->query("SELECT COUNT(*) AS c FROM appointments WHERE username
                 </button>
               </form>
 
-              <!-- Cancel Form -->
               <form method="post" style="display:inline;">
                 <input type="hidden" name="appointment_id" value="<?php echo $row['id']; ?>">
                 <input type="hidden" name="action" value="Cancel">
@@ -140,3 +136,4 @@ $cancelled = $conn->query("SELECT COUNT(*) AS c FROM appointments WHERE username
 
 </body>
 </html>
+
